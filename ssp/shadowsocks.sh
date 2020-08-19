@@ -45,20 +45,8 @@ find_bin() {
 	ssr) ret="/usr/bin/ssr-redir" ;;
 	ssr-local) ret="/usr/bin/ssr-local" ;;
 	ssr-server) ret="/usr/bin/ssr-server" ;;
-	v2ray)
-	if [ -f "/usr/bin/v2ray" ] ; then
-       ret="/usr/bin/v2ray"
-    else
-       ret="/tmp/v2ray"
-    fi
-    ;;
-	trojan)
-	if [ -f "/usr/bin/trojan" ] ; then
-       ret="/usr/bin/trojan"
-    else
-       ret="/tmp/trojan"
-    fi
-    ;;
+	v2ray) ret="/tmp/v2ray" ;;
+	trojan) ret="/tmp/trojan" ;;
 	socks5) ret="/usr/bin/ipt2socks" ;;
 	esac
 	echo $ret
@@ -83,9 +71,8 @@ local type=$stype
 		sed -i 's/\\//g' $config_file
 		;;
 	trojan)
-		tj_bin="/usr/bin/trojan"
-		if [ ! -f "$tj_bin" ]; then
-		if [ ! -f "/tmp/trojan" ];then
+		tj_bin="/tmp/trojan"
+	        if [ ! -f "/tmp/trojan" ];then
 			if [ $trojan_local_enable == "1" ] && [ -s $trojan_local ] ; then
                logger -t "SS" "trojan二进制文件复制成功"
                cat $trojan_local > /tmp/trojan
@@ -118,8 +105,7 @@ local type=$stype
 		fi
 		;;
 	v2ray)
-		v2_bin="/usr/bin/v2ray"
-		if [ ! -f "$v2_bin" ]; then
+		v2_bin="/tmp/v2ray"
 		if [ ! -f "/tmp/v2ray" ];then
 			if [ $v2_local_enable == "1" ] && [ -s $v2_local ] ; then
             logger -t "SS" "v2ray二进制文件复制成功"
